@@ -9,41 +9,56 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppbar({super.key, required this.title});
 
+  final Color _primaryColor = const Color.fromRGBO(0, 166, 166, 1.0);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
         backgroundColor: Colors.white,
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(InterviewTipsScreen.routeName);
-            },
-            icon: const Icon(
-              Icons.question_answer,
-              size: 27,
-            ),
-            tooltip: 'Interview Tips',
-          ),
-          badges.Badge(
-            position: badges.BadgePosition.topEnd(top: 0, end: 3),
-            showBadge: true,
-            badgeContent: const Text(
-              '2',
-              style: TextStyle(color: Colors.white),
-            ),
+          Container(
+            decoration: BoxDecoration(
+                color: _primaryColor, borderRadius: BorderRadius.circular(10)),
             child: IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(NotificationScreen.routeName);
+                Navigator.of(context).pushNamed(InterviewTipsScreen.routeName);
               },
               icon: const Icon(
-                Icons.notifications_active,
-                size: 28,
+                Icons.question_answer,
+                size: 27,
+                color: Colors.white,
               ),
-              tooltip: 'Notifications',
+              tooltip: 'Interview Tips',
             ),
           ),
           const SizedBox(
-            width: 10,
+            width: 15,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: _primaryColor, borderRadius: BorderRadius.circular(10)),
+            child: badges.Badge(
+              position: badges.BadgePosition.topEnd(top: 0, end: 3),
+              showBadge: true,
+              badgeContent: const Text(
+                '2',
+                style: TextStyle(color: Colors.white),
+              ),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(NotificationScreen.routeName);
+                },
+                icon: const Icon(
+                  Icons.notifications_active,
+                  size: 28,
+                  color: Colors.white,
+                ),
+                tooltip: 'Notifications',
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 15,
           ),
         ],
         title: Text(title));

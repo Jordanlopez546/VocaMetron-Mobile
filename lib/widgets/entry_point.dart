@@ -21,6 +21,7 @@ class _EntryPointState extends State<EntryPoint> {
 
   final List<String> _titles = ['Career', 'Jobs', 'Resume', 'Profile'];
   final Color _primaryColor = const Color.fromRGBO(0, 166, 166, 1.0);
+  // Color.fromRGBO(0, 76, 159, 1) - The Other blue
   final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
   final Color _tabBackgroundColor = Colors.white;
   final Color _iconColor = Colors.white;

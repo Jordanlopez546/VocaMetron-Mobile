@@ -12,7 +12,7 @@ class CareerDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const StackScreenAppbar('Notifications'),
+      appBar: const StackScreenAppbar('Title'),
       backgroundColor: _backgroundColor,
     );
   }
