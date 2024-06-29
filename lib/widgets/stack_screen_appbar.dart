@@ -11,7 +11,9 @@ class StackScreenAppbar extends StatelessWidget implements PreferredSizeWidget {
       title: Text(_title),
       backgroundColor: Colors.white,
       actions: [
-        Image.asset('assets/icon.png', width: 60, height: 100),
+        ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Image.asset('assets/icon.png', width: 60, height: 100)),
         const SizedBox(
           width: 10,
         )

@@ -11,6 +11,8 @@ import '../screens/ai_chat_screen.dart';
 class EntryPoint extends StatefulWidget {
   const EntryPoint({super.key});
 
+  static const routeName = '/entry-point';
+
   @override
   State<EntryPoint> createState() => _EntryPointState();
 }
@@ -19,7 +21,7 @@ class _EntryPointState extends State<EntryPoint> {
   int _selectedIndex = 0;
   late PageController _pageController;
 
-  final List<String> _titles = ['Career', 'Jobs', 'Resume', 'Profile'];
+  final List<String> _titles = ['Careers', 'Jobs', 'Resume', 'Profile'];
   final Color _primaryColor = const Color.fromRGBO(0, 166, 166, 1.0);
   // Color.fromRGBO(0, 76, 159, 1) - The Other blue
   final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
@@ -54,11 +56,11 @@ class _EntryPointState extends State<EntryPoint> {
         child: PageView(
           controller: _pageController,
           onPageChanged: _onScreenChange,
-          children: const [
+          children: [
             CareerScreen(),
-            JobsScreen(),
-            ResumeScreen(),
-            ProfileScreen()
+            const JobsScreen(),
+            const ResumeScreen(),
+            const ProfileScreen()
           ],
         ),
       ),
@@ -78,7 +80,7 @@ class _EntryPointState extends State<EntryPoint> {
               tabs: const [
                 GButton(
                   icon: Icons.work,
-                  text: 'Career',
+                  text: 'Careers',
                 ),
                 GButton(
                   icon: Icons.business_center,
