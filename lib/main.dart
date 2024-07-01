@@ -8,10 +8,13 @@ import './screens/ai_chat_screen.dart';
 import './screens/career_detail_screen.dart';
 import './screens/registration_screen.dart';
 import './screens/login_screen.dart';
+import './screens/profile_screen.dart';
+import './screens/help_screen.dart';
 
 import './providers/auth.dart';
 import './providers/career.dart';
 import './providers/job.dart';
+import './providers/theme.dart';
 
 import './widgets/auth_wrapper.dart';
 
@@ -32,7 +35,8 @@ class VocaMetron extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (ctx) => Auth()),
           ChangeNotifierProvider(create: (ctx) => Career()),
-          ChangeNotifierProvider(create: (ctx) => Job())
+          ChangeNotifierProvider(create: (ctx) => Job()),
+          ChangeNotifierProvider(create: (ctx) => VocaTheme())
         ],
         child: Consumer<Auth>(
           builder: (ctx, auth, _) => MaterialApp(
@@ -49,6 +53,8 @@ class VocaMetron extends StatelessWidget {
               CareerDetailScreen.routeName: (ctx) => const CareerDetailScreen(),
               LoginScreen.routeName: (ctx) => const LoginScreen(),
               RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),
+              EditProfileScreen.routeName: (ctx) => const EditProfileScreen(),
+              HelpScreen.routeName: (ctx) => const HelpScreen()
             },
           ),
         ));

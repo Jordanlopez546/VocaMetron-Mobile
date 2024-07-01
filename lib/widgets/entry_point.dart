@@ -27,7 +27,6 @@ class _EntryPointState extends State<EntryPoint> {
   final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
   final Color _tabBackgroundColor = Colors.white;
   final Color _iconColor = Colors.white;
-  final Color _activeColor = const Color.fromRGBO(0, 166, 166, 1.0);
 
   @override
   void initState() {
@@ -71,7 +70,7 @@ class _EntryPointState extends State<EntryPoint> {
           child: GNav(
               backgroundColor: _primaryColor,
               color: _iconColor,
-              activeColor: _activeColor,
+              activeColor: _primaryColor,
               tabBackgroundColor: _tabBackgroundColor,
               padding: const EdgeInsets.all(16),
               gap: 10,
@@ -103,7 +102,7 @@ class _EntryPointState extends State<EntryPoint> {
         },
         backgroundColor: _tabBackgroundColor,
         tooltip: 'VocaMetron AI Chat',
-        foregroundColor: _activeColor,
+        foregroundColor: _primaryColor,
         splashColor: _backgroundColor,
         child: const Icon(Icons.chat),
       ),

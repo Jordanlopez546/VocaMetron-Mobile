@@ -199,7 +199,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           cursorColor: Colors.grey,
                           decoration: const InputDecoration(
                             label: Text(
-                              'Full Name',
+                              'Full Name/Username',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Color.fromRGBO(0, 166, 166, 1.0),
