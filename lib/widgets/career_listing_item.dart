@@ -18,10 +18,11 @@ class CareerListingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Card(
       elevation: 5,
       color: Colors.white,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 10),
       child: InkWell(
         onTap: () {
           Navigator.of(context)
@@ -35,37 +36,38 @@ class CareerListingItem extends StatelessWidget {
           });
         },
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(screenWidth * 0.05),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 careerTitle,
-                style: const TextStyle(
-                  fontSize: 20,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.05,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(0, 76, 159, 1),
+                  color: const Color.fromRGBO(0, 76, 159, 1),
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
+              Text(
                 "Skills Required:",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: screenWidth * 0.045, fontWeight: FontWeight.bold),
               ),
               for (var skill in skillsRequired)
                 Text(
                   "- $skill",
-                  style: const TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: screenWidth * 0.043),
                 ),
               const SizedBox(height: 10),
               Text(
                 "Job Outlook: $jobOutlook",
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: screenWidth * 0.043),
               ),
               const SizedBox(height: 10),
               Text(
                 "Average Salary: $averageSalary",
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: screenWidth * 0.043),
               ),
             ],
           ),

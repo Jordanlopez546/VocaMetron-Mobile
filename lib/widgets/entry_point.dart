@@ -3,7 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../screens/career_screen.dart';
 import '../screens/jobs_screen.dart';
-import '../screens/profile_screen.dart';
+import '../screens/settings_screen.dart';
 import '../screens/resume_screen.dart';
 import '../widgets/custom_appbar.dart';
 import '../screens/ai_chat_screen.dart';
@@ -21,7 +21,7 @@ class _EntryPointState extends State<EntryPoint> {
   int _selectedIndex = 0;
   late PageController _pageController;
 
-  final List<String> _titles = ['Careers', 'Jobs', 'Resume', 'Profile'];
+  final List<String> _titles = ['Careers', 'Jobs', 'Resume', 'Settings'];
   final Color _primaryColor = const Color.fromRGBO(0, 166, 166, 1.0);
   // Color.fromRGBO(0, 76, 159, 1) - The Other blue
   final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
@@ -56,11 +56,11 @@ class _EntryPointState extends State<EntryPoint> {
         child: PageView(
           controller: _pageController,
           onPageChanged: _onScreenChange,
-          children: [
+          children: const [
             CareerScreen(),
-            const JobsScreen(),
-            const ResumeScreen(),
-            const ProfileScreen()
+            JobsScreen(),
+            ResumeScreen(),
+            SettingsScreen()
           ],
         ),
       ),
@@ -91,8 +91,8 @@ class _EntryPointState extends State<EntryPoint> {
                   text: 'Resume',
                 ),
                 GButton(
-                  icon: Icons.person,
-                  text: 'Profile',
+                  icon: Icons.settings,
+                  text: 'Settings',
                 ),
               ]),
         ),

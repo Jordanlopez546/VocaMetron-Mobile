@@ -8,7 +8,11 @@ import './screens/ai_chat_screen.dart';
 import './screens/career_detail_screen.dart';
 import './screens/registration_screen.dart';
 import './screens/login_screen.dart';
+
 import './providers/auth.dart';
+import './providers/career.dart';
+import './providers/job.dart';
+
 import './widgets/auth_wrapper.dart';
 
 void main() async {
@@ -27,6 +31,8 @@ class VocaMetron extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (ctx) => Auth()),
+          ChangeNotifierProvider(create: (ctx) => Career()),
+          ChangeNotifierProvider(create: (ctx) => Job())
         ],
         child: Consumer<Auth>(
           builder: (ctx, auth, _) => MaterialApp(
