@@ -9,6 +9,8 @@ import './notification_screen.dart';
 import './interview_tips_screen.dart';
 import './help_screen.dart';
 import './profile_screen.dart';
+import '../widgets/delete_account_item.dart';
+import '../providers/profile.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -29,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
           Text(
             "Account",
             style: TextStyle(
-                fontSize: screenWidth * 0.06, fontWeight: FontWeight.w500),
+                fontSize: screenWidth * 0.055, fontWeight: FontWeight.w500),
           ),
           const SizedBox(
             height: 20,
@@ -59,11 +61,13 @@ class SettingsScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Jordan Lopez",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: screenWidth * 0.045),
+                      Consumer<Profile>(
+                        builder: (ctx, profile, _) => Text(
+                          profile.fullName ?? "Name",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: screenWidth * 0.045),
+                        ),
                       ),
                       const SizedBox(
                         height: 8,
@@ -87,7 +91,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           Text("Settings",
               style: TextStyle(
-                  fontSize: screenWidth * 0.06, fontWeight: FontWeight.w500)),
+                  fontSize: screenWidth * 0.055, fontWeight: FontWeight.w500)),
           const SizedBox(
             height: 20,
           ),
@@ -128,7 +132,14 @@ class SettingsScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const LogoutItem()
+          const LogoutItem(),
+          const SizedBox(
+            height: 20,
+          ),
+          const DeleteAccountItem(),
+          const SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );

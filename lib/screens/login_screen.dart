@@ -6,6 +6,7 @@ import 'dart:async';
 import './registration_screen.dart';
 import '../widgets/entry_point.dart';
 import '../providers/auth.dart';
+import '../providers/profile.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login-screen';
@@ -80,8 +81,10 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
+      final Profile profileProvider =
+          Provider.of<Profile>(context, listen: false);
       final response = await Provider.of<Auth>(context, listen: false)
-          .signIn(email, password);
+          .signIn(email, password, profileProvider);
 
       var message = '';
       var type = '';

@@ -15,6 +15,7 @@ import './providers/auth.dart';
 import './providers/career.dart';
 import './providers/job.dart';
 import './providers/theme.dart';
+import './providers/profile.dart';
 
 import './widgets/auth_wrapper.dart';
 
@@ -36,7 +37,10 @@ class VocaMetron extends StatelessWidget {
           ChangeNotifierProvider(create: (ctx) => Auth()),
           ChangeNotifierProvider(create: (ctx) => Career()),
           ChangeNotifierProvider(create: (ctx) => Job()),
-          ChangeNotifierProvider(create: (ctx) => VocaTheme())
+          ChangeNotifierProvider(create: (ctx) => VocaTheme()),
+          ChangeNotifierProvider(
+            create: (ctx) => Profile(),
+          )
         ],
         child: Consumer<Auth>(
           builder: (ctx, auth, _) => MaterialApp(

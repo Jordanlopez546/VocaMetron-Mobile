@@ -89,6 +89,8 @@ class Job with ChangeNotifier {
     return [..._jobs];
   }
 
+  Future<void> getUserJobs() async {}
+
   Future<void> launchURL(String url) async {
     try {
       if (await launcher.canLaunchUrl(Uri.parse(url))) {

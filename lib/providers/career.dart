@@ -118,4 +118,6 @@ class Career with ChangeNotifier {
   List<Map<String, dynamic>> get careers {
     return [..._careers];
   }
+
+  Future<void> getUserCareers() async {}
 }

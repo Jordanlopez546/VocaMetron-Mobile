@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/edit_profile_item.dart';
 import '../widgets/stack_screen_appbar.dart';
+import '../providers/profile.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const routeName = '/settings/edit-profile-screen';
@@ -14,9 +16,107 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
-  final bool _isLoading = false;
+  bool _isLoading = false;
 
-  _submit(BuildContext context) {}
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _skillsController = TextEditingController();
+  final TextEditingController _experiencesController = TextEditingController();
+  final TextEditingController _careerInterestsController =
+      TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeControllers();
+    });
+  }
+
+  void _initializeControllers() {
+    final profile = Provider.of<Profile>(context, listen: false);
+    _fullNameController.text = profile.fullName ?? "";
+    _emailController.text = profile.email ?? '';
+    _phoneNumberController.text = profile.phoneNumber ?? '';
+    _addressController.text = profile.address ?? '';
+    _skillsController.text = profile.skills ?? '';
+    _experiencesController.text = profile.experiences ?? '';
+    _careerInterestsController.text = profile.careerInterests ?? '';
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneNumberController.dispose();
+    _addressController.dispose();
+    _skillsController.dispose();
+    _experiencesController.dispose();
+    _careerInterestsController.dispose();
+    super.dispose();
+  }
+
+  Future<void> handleUpdate() async {
+    final provider = Provider.of<Profile>(context, listen: false);
+
+    try {
+      bool? confirmed = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Confirm Update'),
+          content: const Text('Are you sure you want to update your profile?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(true),
+              child: const Text('Update'),
+            ),
+          ],
+        ),
+      );
+
+      if (confirmed == true) {
+        setState(() {
+          _isLoading = true;
+        });
+
+        await provider.updateUserDetails(
+          newFullName: _fullNameController.text,
+          newEmail: _emailController.text,
+          newPhoneNumber: _phoneNumberController.text,
+          newAddress: _addressController.text,
+          newSkills: _skillsController.text,
+          newExperiences: _experiencesController.text,
+          newCareerInterests: _careerInterestsController.text,
+        );
+
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Profile updated successfully')),
+        );
+      }
+    } catch (error) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update profile: $error')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  _submit(BuildContext context) async {
+    handleUpdate();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,31 +164,73 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             const SizedBox(
               height: 20,
             ),
-            const EditProfileItem(widget: TextField(), title: "Name"),
+            EditProfileItem(
+                widget: TextField(
+                  controller: _fullNameController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                title: "Name"),
             const SizedBox(
               height: 20,
             ),
-            const EditProfileItem(widget: TextField(), title: "Email"),
+            EditProfileItem(
+                widget: TextField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                title: "Email"),
             const SizedBox(
               height: 20,
             ),
-            const EditProfileItem(widget: TextField(), title: "Phone"),
+            EditProfileItem(
+                widget: TextField(
+                  controller: _phoneNumberController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                title: "Phone"),
             const SizedBox(
               height: 20,
             ),
-            const EditProfileItem(widget: TextField(), title: "Address"),
+            EditProfileItem(
+                widget: TextField(
+                  controller: _addressController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                title: "Address"),
             const SizedBox(
               height: 20,
             ),
-            const EditProfileItem(widget: TextField(), title: "Skills"),
+            EditProfileItem(
+                widget: TextField(
+                  controller: _skillsController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                title: "Skills"),
             const SizedBox(
               height: 20,
             ),
-            const EditProfileItem(widget: TextField(), title: "Experiences"),
+            EditProfileItem(
+                widget: TextField(
+                  controller: _experiencesController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                title: "Experiences"),
             const SizedBox(
               height: 20,
             ),
-            const EditProfileItem(widget: TextField(), title: "Interests"),
+            EditProfileItem(
+                widget: TextField(
+                  controller: _careerInterestsController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+                title: "Interests"),
             const SizedBox(
               height: 20,
             ),

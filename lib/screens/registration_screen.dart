@@ -123,6 +123,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       if (response.statusCode == 201) {
         type = 'Success';
         message = 'Sign up successful';
+
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacementNamed(LoginScreen.routeName);
       } else {
         type = 'Error';
         message =

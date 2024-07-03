@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/url.dart';
 import '../utils/api_utils.dart';
+import '../providers/profile.dart';
 
 class Auth with ChangeNotifier {
   String? _token, _csrfToken;
@@ -68,7 +69,8 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<Response> signIn(String email, String password) async {
+  Future<Response> signIn(
+      String email, String password, Profile profileProvider) async {
     final response =
         await handleApiRequest(() => post(Uri.parse('$apiUrl/app/auth/login'),
             headers: {'Content-Type': 'application/json'},
@@ -86,6 +88,7 @@ class Auth with ChangeNotifier {
       _expiryDate = DateTime.now().add(const Duration(days: 365));
 
       await _saveAuthData();
+      await profileProvider.fetchUserDetails();
 
       notifyListeners();
     }
