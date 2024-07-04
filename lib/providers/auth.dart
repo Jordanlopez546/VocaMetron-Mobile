@@ -130,4 +130,33 @@ class Auth with ChangeNotifier {
 
     notifyListeners();
   }
+
+  // void _autoLogout() async {
+  //   var tokenExpiryDate = await _returnExpiryDate();
+
+  //   if (tokenExpiryDate != null) {
+  //     final timeToExpiry = tokenExpiryDate.difference(DateTime.now()).inSeconds;
+  //     Timer(Duration(seconds: timeToExpiry), signOut);
+  //   }
+  // }
+
+  // Future _returnExpiryDate() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? userDataString = prefs.getString('userData');
+
+  //   if (userDataString != null) {
+  //     Map<String, dynamic> userData = json.decode(userDataString);
+  //     String? expiryDateString = userData['expiryDate'];
+
+  //     if (expiryDateString != null) {
+  //       return DateTime.parse(expiryDateString);
+  //     }
+  //   }
+
+  //   return null;
+  // }
+
+  Future<void> uploadProfileImg() async {}
+
+  Future<void> retrieveProfileImg() async {}
 }

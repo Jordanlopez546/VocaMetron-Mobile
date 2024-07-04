@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/url.dart';
+import '../utils/connectivity_helper.dart';
 
 class Profile with ChangeNotifier {
   String? _email, _phoneNumber, _address, _fullName;
@@ -19,6 +20,12 @@ class Profile with ChangeNotifier {
 
   // Fetch user details from the database
   Future<void> fetchUserDetails() async {
+    bool isConnected = await ConnectivityHelper.isInternetAvailable();
+
+    if (!isConnected) {
+      throw Exception('No internet connection');
+    }
+
     final url = Uri.parse('$apiUrl/app/auth/user/user-details');
 
     SharedPreferences prefs = await SharedPreferences.getInstance();

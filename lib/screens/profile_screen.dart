@@ -27,6 +27,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _careerInterestsController =
       TextEditingController();
 
+  String imageUrl = '';
+
   @override
   void initState() {
     super.initState();
@@ -152,12 +154,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       width: screenWidth * 0.34,
                     ),
                   ),
-                  TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                          foregroundColor:
-                              const Color.fromRGBO(0, 166, 166, 1.0)),
-                      child: const Text("Upload Image"))
+                  // TextButton(
+                  //     onPressed: () {},
+                  //     style: TextButton.styleFrom(
+                  //         foregroundColor:
+                  //             const Color.fromRGBO(0, 166, 166, 1.0)),
+                  //     child: const Text("Upload Image"))
                 ],
               ),
             ),
