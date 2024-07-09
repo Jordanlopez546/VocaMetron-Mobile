@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/url.dart';
 import '../utils/api_utils.dart';
+import '../providers/profile.dart';
 
 class Auth with ChangeNotifier {
   String? _token, _csrfToken;
@@ -68,7 +69,8 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<Response> signIn(String email, String password) async {
+  Future<Response> signIn(
+      String email, String password, Profile profileProvider) async {
     final response =
         await handleApiRequest(() => post(Uri.parse('$apiUrl/app/auth/login'),
             headers: {'Content-Type': 'application/json'},
@@ -86,6 +88,7 @@ class Auth with ChangeNotifier {
       _expiryDate = DateTime.now().add(const Duration(days: 365));
 
       await _saveAuthData();
+      await profileProvider.fetchUserDetails();
 
       notifyListeners();
     }
@@ -127,4 +130,33 @@ class Auth with ChangeNotifier {
 
     notifyListeners();
   }
+
+  // void _autoLogout() async {
+  //   var tokenExpiryDate = await _returnExpiryDate();
+
+  //   if (tokenExpiryDate != null) {
+  //     final timeToExpiry = tokenExpiryDate.difference(DateTime.now()).inSeconds;
+  //     Timer(Duration(seconds: timeToExpiry), signOut);
+  //   }
+  // }
+
+  // Future _returnExpiryDate() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? userDataString = prefs.getString('userData');
+
+  //   if (userDataString != null) {
+  //     Map<String, dynamic> userData = json.decode(userDataString);
+  //     String? expiryDateString = userData['expiryDate'];
+
+  //     if (expiryDateString != null) {
+  //       return DateTime.parse(expiryDateString);
+  //     }
+  //   }
+
+  //   return null;
+  // }
+
+  Future<void> uploadProfileImg() async {}
+
+  Future<void> retrieveProfileImg() async {}
 }

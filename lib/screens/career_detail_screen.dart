@@ -13,6 +13,8 @@ class CareerDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     // Retrieve the arguments
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -31,22 +33,23 @@ class CareerDetailScreen extends StatelessWidget {
       backgroundColor: _backgroundColor,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(screenWidth * 0.04),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 careerTitle,
-                style: const TextStyle(
-                  fontSize: 26,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.065,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromRGBO(0, 76, 159, 1),
+                  color: const Color.fromRGBO(0, 76, 159, 1),
                 ),
               ),
               const SizedBox(height: 50),
-              const Text(
+              Text(
                 "Skills Required:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
@@ -54,12 +57,13 @@ class CareerDetailScreen extends StatelessWidget {
               for (var skill in skillsRequired)
                 Text(
                   skill,
-                  style: const TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: screenWidth * 0.043),
                 ),
               const SizedBox(height: 30),
-              const Text(
+              Text(
                 "Technologies:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
@@ -67,43 +71,46 @@ class CareerDetailScreen extends StatelessWidget {
               for (var tech in technologies)
                 Text(
                   tech,
-                  style: const TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: screenWidth * 0.043),
                 ),
               const SizedBox(height: 30),
-              const Text(
+              Text(
                 "Job Outlook:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
                 jobOutlook,
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: screenWidth * 0.043),
               ),
               const SizedBox(height: 30),
-              const Text(
+              Text(
                 "Average Salary:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
                 averageSalary,
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: screenWidth * 0.043),
               ),
               const SizedBox(height: 30),
-              const Text(
+              Text(
                 "Description:",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: screenWidth * 0.05, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
                 description,
-                style: const TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: screenWidth * 0.043),
               ),
             ],
           ),

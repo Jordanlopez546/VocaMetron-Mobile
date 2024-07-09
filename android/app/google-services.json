@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "70957793056",
+    "project_id": "vocametron-main-assets-db",
+    "storage_bucket": "vocametron-main-assets-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70957793056:android:8972a10d6349db11bf2145",
+        "android_client_info": {
+          "package_name": "com.example.vocametron"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkN-Bd5wCEfuMNikAfoxioLPDHuADt7oc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
