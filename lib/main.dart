@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import './screens/notification_screen.dart';
 import './screens/interview_tips_screen.dart';
@@ -17,6 +18,7 @@ import './providers/career.dart';
 import './providers/job.dart';
 import './providers/theme.dart';
 import './providers/profile.dart';
+import './providers/chat.dart';
 
 import './widgets/auth_wrapper.dart';
 
@@ -26,6 +28,8 @@ void main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   await Firebase.initializeApp();
+
+  await dotenv.load(fileName: ".env");
 
   runApp(const VocaMetron());
 }
@@ -43,6 +47,9 @@ class VocaMetron extends StatelessWidget {
           ChangeNotifierProvider(create: (ctx) => VocaTheme()),
           ChangeNotifierProvider(
             create: (ctx) => Profile(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => ChatbotProvider(),
           )
         ],
         child: Consumer<Auth>(
@@ -50,13 +57,21 @@ class VocaMetron extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             home: const AuthWrapper(),
             theme: ThemeData(
-              fontFamily: 'Poppins',
-            ),
+                fontFamily: 'Poppins',
+                textTheme: const TextTheme(
+                    titleMedium: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17),
+                    titleSmall: TextStyle(
+                        color: Colors.black45,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15))),
             routes: {
               NotificationScreen.routeName: (ctx) => const NotificationScreen(),
               InterviewTipsScreen.routeName: (ctx) =>
                   const InterviewTipsScreen(),
-              AiChatScreen.routeName: (ctx) => const AiChatScreen(),
+              AiChatScreen.routeName: (ctx) => AiChatScreen(),
               CareerDetailScreen.routeName: (ctx) => const CareerDetailScreen(),
               LoginScreen.routeName: (ctx) => const LoginScreen(),
               RegistrationScreen.routeName: (ctx) => const RegistrationScreen(),

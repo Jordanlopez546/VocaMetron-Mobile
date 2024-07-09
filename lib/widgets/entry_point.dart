@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/career_screen.dart';
 import '../screens/jobs_screen.dart';
@@ -7,6 +8,7 @@ import '../screens/settings_screen.dart';
 import '../screens/resume_screen.dart';
 import '../widgets/custom_appbar.dart';
 import '../screens/ai_chat_screen.dart';
+import '../providers/chat.dart';
 
 class EntryPoint extends StatefulWidget {
   const EntryPoint({super.key});
@@ -46,6 +48,9 @@ class _EntryPointState extends State<EntryPoint> {
 
   @override
   Widget build(BuildContext context) {
+    // Ensure messages are loaded before building the UI
+    Provider.of<ChatbotProvider>(context, listen: false).loadMessages();
+
     return Scaffold(
       appBar: CustomAppbar(
         title: _titles[_selectedIndex],

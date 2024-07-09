@@ -17,7 +17,9 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: checkInternetAndLogin(
-          Provider.of<Profile>(context, listen: false), context),
+        Provider.of<Profile>(context, listen: false),
+        context,
+      ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -83,8 +85,9 @@ class AuthWrapper extends StatelessWidget {
         DateTime expiryDate = DateTime.parse(expiryDateString);
 
         if (expiryDate.isAfter(DateTime.now())) {
-          // Token is valid, fetch user profile
+          // Token is valid, fetch user profile, user messages
           await profileProvider.fetchUserDetails();
+
           return true;
         }
       }
