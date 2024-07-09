@@ -19,6 +19,7 @@ import './providers/job.dart';
 import './providers/theme.dart';
 import './providers/profile.dart';
 import './providers/chat.dart';
+import './providers/interview_tip.dart';
 
 import './widgets/auth_wrapper.dart';
 
@@ -50,6 +51,9 @@ class VocaMetron extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (ctx) => ChatbotProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => InterviewTipsProvider(),
           )
         ],
         child: Consumer<Auth>(
