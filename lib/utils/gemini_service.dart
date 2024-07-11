@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../providers/interview_tip.dart';
+import '../providers/career.dart';
 
 class GeminiService {
   static const String _baseUrl =
@@ -77,6 +78,50 @@ class GeminiService {
       return tips;
     } else {
       throw Exception('Failed to generate interview tips');
+    }
+  }
+
+  // Method to generate career paths
+  static Future<List<CareerItem>> generateUserCareers(
+      String skills, String experiences, String careerInterests) async {
+    final apiKey = dotenv.env['GEMINI_API_KEY'];
+    final url = Uri.parse('$_baseUrl?key=$apiKey');
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'contents': [
+          {
+            'parts': [
+              {
+                'text':
+                    'Generate as many as possible as you can, like so much, career paths in JSON format, each with "title", "skills", "technologies", "outlook", "salary", and "description" fields, based on skills: $skills, experiences: $experiences, and career interests: $careerInterests'
+              }
+            ]
+          }
+        ],
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+      final String content =
+          jsonResponse['candidates'][0]['content']['parts'][0]['text'];
+
+      // Extract the JSON part from the content
+      final jsonStart = content.indexOf('[');
+      final jsonEnd = content.lastIndexOf(']') + 1;
+      final jsonString = content.substring(jsonStart, jsonEnd);
+
+      // Parse the JSON string
+      final List<dynamic> careersJson = jsonDecode(jsonString);
+
+      return careersJson
+          .map<CareerItem>((json) => CareerItem.fromJson(json))
+          .toList();
+    } else {
+      throw Exception('Failed to generate career paths');
     }
   }
 }

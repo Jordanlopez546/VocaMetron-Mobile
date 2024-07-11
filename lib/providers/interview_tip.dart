@@ -39,6 +39,7 @@ class InterviewTipsProvider with ChangeNotifier {
       // Notify listeners after updating the tips
       notifyListeners();
     } catch (e) {
+      debugPrint('Error generating interview tips: $e');
       throw Exception('Failed to generate interview tips');
     }
   }

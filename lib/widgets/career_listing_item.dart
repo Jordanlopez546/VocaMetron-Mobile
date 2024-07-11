@@ -66,7 +66,7 @@ class CareerListingItem extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               Text(
-                "Average Salary: $averageSalary",
+                "Average Salary: $averageSalary (In The US)",
                 style: TextStyle(fontSize: screenWidth * 0.043),
               ),
             ],

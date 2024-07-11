@@ -1,1 +1,1 @@
-const String apiUrl = 'http://192.168.0.109:4080';
+const String apiUrl = 'https://voca-metron-backend.vercel.app';
