@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
 import '../providers/chat.dart';
+import '../providers/interview_tip.dart';
+import '../providers/career.dart';
 import '../screens/login_screen.dart';
 
 class LogoutItem extends StatefulWidget {
@@ -16,6 +18,8 @@ class _LogoutItemState extends State<LogoutItem> {
   Future<void> handleLogout() async {
     final auth = Provider.of<Auth>(context, listen: false);
     final chat = Provider.of<ChatbotProvider>(context, listen: false);
+    final tip = Provider.of<InterviewTipsProvider>(context, listen: false);
+    final career = Provider.of<Career>(context, listen: false);
 
     try {
       bool? confirmed = await showDialog<bool>(
@@ -39,6 +43,8 @@ class _LogoutItemState extends State<LogoutItem> {
       if (confirmed == true) {
         await auth.signOut();
         chat.clearMessages();
+        tip.clearTips();
+        career.clearCareers();
         if (!mounted) return; // Check if the widget is still in the tree
 
         ScaffoldMessenger.of(context).showSnackBar(

@@ -3,12 +3,12 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/career_screen.dart';
-import '../screens/jobs_screen.dart';
-import '../screens/settings_screen.dart';
-import '../screens/resume_screen.dart';
-import '../widgets/custom_appbar.dart';
 import '../screens/ai_chat_screen.dart';
+import '../screens/settings_screen.dart';
+import '../widgets/custom_appbar.dart';
 import '../providers/chat.dart';
+import '../providers/career.dart';
+import '../providers/profile.dart';
 
 class EntryPoint extends StatefulWidget {
   const EntryPoint({super.key});
@@ -23,7 +23,37 @@ class _EntryPointState extends State<EntryPoint> {
   int _selectedIndex = 0;
   late PageController _pageController;
 
-  final List<String> _titles = ['Careers', 'Jobs', 'Resume', 'Settings'];
+  bool _isLoading = false;
+
+  void _onPress() async {
+    final profile = Provider.of<Profile>(context, listen: false);
+
+    final skills = profile.skills ?? '';
+    final careerInterests = profile.careerInterests ?? '';
+    final experiences = profile.experiences ?? '';
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await Provider.of<Career>(context, listen: false)
+          .generateUserCareers(skills, experiences, careerInterests);
+    } catch (error) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content:
+                Text('Failed to generate career paths. Please try again.')),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  final List<String> _titles = ['Careers', 'VocaMetron AI', 'Settings'];
   final Color _primaryColor = const Color.fromRGBO(0, 166, 166, 1.0);
   // Color.fromRGBO(0, 76, 159, 1) - The Other blue
   final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
@@ -60,11 +90,10 @@ class _EntryPointState extends State<EntryPoint> {
         child: PageView(
           controller: _pageController,
           onPageChanged: _onScreenChange,
-          children: const [
-            CareerScreen(),
-            JobsScreen(),
-            ResumeScreen(),
-            SettingsScreen()
+          children: [
+            CareerScreen(_isLoading),
+            AiChatScreen(),
+            const SettingsScreen()
           ],
         ),
       ),
@@ -87,12 +116,8 @@ class _EntryPointState extends State<EntryPoint> {
                   text: 'Careers',
                 ),
                 GButton(
-                  icon: Icons.business_center,
-                  text: 'Jobs',
-                ),
-                GButton(
-                  icon: Icons.description,
-                  text: 'Resume',
+                  icon: Icons.chat,
+                  text: 'AI Chat',
                 ),
                 GButton(
                   icon: Icons.settings,
@@ -101,16 +126,13 @@ class _EntryPointState extends State<EntryPoint> {
               ]),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(AiChatScreen.routeName);
-        },
-        backgroundColor: _tabBackgroundColor,
-        tooltip: 'VocaMetron AI Chat',
-        foregroundColor: _primaryColor,
-        splashColor: _backgroundColor,
-        child: const Icon(Icons.chat),
-      ),
+      floatingActionButton: _selectedIndex == 0
+          ? FloatingActionButton(
+              onPressed: _onPress,
+              backgroundColor: _primaryColor,
+              splashColor: _backgroundColor,
+              child: const Icon(Icons.add, color: Colors.white, size: 30))
+          : null,
     );
   }
 }

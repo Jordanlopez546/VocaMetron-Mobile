@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/stack_screen_appbar.dart';
 import '../providers/chat.dart';
 import '../widgets/typing_dots.dart';
 
@@ -10,7 +9,6 @@ class AiChatScreen extends StatelessWidget {
 
   AiChatScreen({super.key});
 
-  final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
   final Color _colour = const Color.fromRGBO(0, 166, 166, 1.0);
 
   final TextEditingController _textController = TextEditingController();
@@ -77,34 +75,30 @@ class AiChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const StackScreenAppbar('VocaMetron AI'),
-      backgroundColor: _backgroundColor,
-      body: Column(
-        children: [
-          Expanded(child: Consumer<ChatbotProvider>(
-            builder: (context, chatProvider, _) {
-              return ListView.builder(
-                  reverse: true,
-                  itemCount: chatProvider.messages.length +
-                      (chatProvider.isTyping ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (index == 0 && chatProvider.isTyping) {
-                      return TypingIndicator(colour: _colour);
-                    } else {
-                      final message = chatProvider
-                          .messages[chatProvider.isTyping ? index - 1 : index];
-                      return ChatMessageWidget(
-                        message: message,
-                        colour: _colour,
-                      );
-                    }
-                  });
-            },
-          )),
-          _buildTextComposer(context, _colour),
-        ],
-      ),
+    return Column(
+      children: [
+        Expanded(child: Consumer<ChatbotProvider>(
+          builder: (context, chatProvider, _) {
+            return ListView.builder(
+                reverse: true,
+                itemCount: chatProvider.messages.length +
+                    (chatProvider.isTyping ? 1 : 0),
+                itemBuilder: (context, index) {
+                  if (index == 0 && chatProvider.isTyping) {
+                    return TypingIndicator(colour: _colour);
+                  } else {
+                    final message = chatProvider
+                        .messages[chatProvider.isTyping ? index - 1 : index];
+                    return ChatMessageWidget(
+                      message: message,
+                      colour: _colour,
+                    );
+                  }
+                });
+          },
+        )),
+        _buildTextComposer(context, _colour),
+      ],
     );
   }
 }
