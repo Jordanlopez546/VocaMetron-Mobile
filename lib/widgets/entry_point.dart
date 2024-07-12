@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../screens/career_screen.dart';
 import '../screens/ai_chat_screen.dart';
 import '../screens/settings_screen.dart';
-import '../screens/resume_screen.dart';
 import '../widgets/custom_appbar.dart';
 import '../providers/chat.dart';
 import '../providers/career.dart';
@@ -54,12 +53,7 @@ class _EntryPointState extends State<EntryPoint> {
     }
   }
 
-  final List<String> _titles = [
-    'Careers',
-    'VocaMetron AI',
-    'Resume',
-    'Settings'
-  ];
+  final List<String> _titles = ['Careers', 'VocaMetron AI', 'Settings'];
   final Color _primaryColor = const Color.fromRGBO(0, 166, 166, 1.0);
   // Color.fromRGBO(0, 76, 159, 1) - The Other blue
   final Color _backgroundColor = const Color.fromRGBO(234, 242, 255, 1.0);
@@ -99,7 +93,6 @@ class _EntryPointState extends State<EntryPoint> {
           children: [
             CareerScreen(_isLoading),
             AiChatScreen(),
-            const ResumeScreen(),
             const SettingsScreen()
           ],
         ),
@@ -125,10 +118,6 @@ class _EntryPointState extends State<EntryPoint> {
                 GButton(
                   icon: Icons.chat,
                   text: 'AI Chat',
-                ),
-                GButton(
-                  icon: Icons.description,
-                  text: 'Resume',
                 ),
                 GButton(
                   icon: Icons.settings,
